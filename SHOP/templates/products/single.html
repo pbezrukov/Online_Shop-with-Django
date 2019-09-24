@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="row" xmlns="http://www.w3.org/1999/html">
+    <div class="col-sm-4">
+        {% for img in images %}
+            {% if img.featured %}
+
+    <div class="col-xs-12">
+
+        <img class="img-fluid" src="{{ img.image.url }}"/>
+        <hr/>
+    </div>
+    {% endif %}
+        {% endfor %}
+    {% for img in images %}
+            {% if not img.featured %}
+        <div class="col-lg-6">
+            <a >
+              <img src="{{ img.image.url }}" class="img-thumbnail"/>
+            </a>
+        </div>
+            {% endif %}
+        {% endfor %}
+</div>
+
+
+ <div class="col-sm-8">
+     <h1>{{ product.title }} <form class="btn float-right" method="POST" action='{% url "add_to_cart" product.slug %}'> {% csrf_token %}
+            <input class="btn btn-success btn-block" type="submit" value="Add to cart"/>
+             <input class="form-control" name="qty" type="number" value="1"/>
+<!--             <input name="attr" type="text" placeholder="color"/>-->
+             {% if product.variation_set.all %}
+
+             {% if product.variation_set.sizes %}
+             <select class="form-control" name="size">
+                 {% for item in product.variation_set.sizes %}
+                 <option value="{{ item.title|lower }}">{{ item.title|capfirst }}</option>
+
+                 {% endfor %}
+             </select>
+             {% endif %}
+
+             {% if product.variation_set.colors %}
+             <select class="form-control" name="color">
+                 {% for item in product.variation_set.colors %}
+                 <option value="{{ item.title|lower }}">{{ item.title|capfirst }}</option>
+
+                 {% endfor %}
+             </select>
+             {% endif %}
+             {% endif %}
+
+         </form></h1>
+
+     <hr/>
+     Price: ${{ product.price }}
+     <hr/>
+
+        {{ product.description|linebreaks }}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <style>
+        .navbar {
+        margin-bottom: 20px
+        }
+    </style>
+
+  <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline my-0 my-lg-0" action="/s/">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'products' %}">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'view' %}">Cart <span class="badge badge-secondary">{% if not request.session.items_total %} 0 {% else %} {{ request.session.items_total }} {% endif %}</span></a>
+      </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="#">Account</a></li>
+        {% endif %}
+    </ul>
+
+  </div>
+</nav>

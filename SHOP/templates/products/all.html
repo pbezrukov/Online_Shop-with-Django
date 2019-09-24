@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+
+{% load staticfiles %}
+{% block head_title %}
+
+Products ||
+
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+{% for product in products %}
+    <div class="col-sm-2">
+        <style>
+        .col-sm-4 {
+        margin-bottom: 20px
+
+        }
+        </style>
+        <div class="img-thumbnail">
+    {% if product.productimage_set.all %}
+        {% for item in product.productimage_set.all %}
+
+        {% if item.featured %}
+        <div style="
+        width:150px;
+        height:150px;
+        margin: 0 auto;">
+            <a href="{{ product.get_absolute_url }}">
+            <div class="background_img_thumb" style="background-image: url('{{ item.image.url }}');"></div></a>
+
+
+        </div>
+<!--        <img  src="{{ item.image.url }}" class="img-thumbnail"/>-->
+        {% endif %}
+
+
+        {% endfor %}
+    {% else %}
+             <div style="
+        width:150px;
+        height:150px;
+        margin: 0 auto;">
+              <div class="background_img_thumb"></div>
+             </div>
+<!--            <img src="{% static 'img/placeholder.jpg' %}" class="img-thumbnail" width="450"/>-->
+    {% endif %}
+
+         <div class="caption">
+             <a><h5>{{ product.title }}</h5><p><font color="black">${{ product.price }}</font></p></a>
+                <a href='{{ product.get_absolute_url }}' class="btn btn-primary" role="button">View</a>
+         </div>
+        </div>
+    </div>
+
+ {% endfor %}
+
+</div>
+
+{% endblock %}

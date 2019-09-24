@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+      <meta charset="UTF-8">
+    <title>JS Counter</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body onload="incrementCount(10)">
+    <div class="main_container" id="id_main_container">
+      <div class="container_inner" id="display_div_id">
+
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  var counter_list = [120];
+  var str_counter_0 = counter_list[0];
+  var display_str = "";
+  var display_div = document.getElementById("display_div_id");
+
+  function incrementCount(current_count){
+    setInterval(function(){
+      // clear count
+      while (display_div.hasChildNodes()) {
+          display_div.removeChild(display_div.lastChild);
+      }
+      str_counter_0++;
+
+      if(str_counter_0>128 && str_counter_0<138 ){
+        str_counter_0 = str_counter_0 + 2;
+      }
+
+      display_str = "Зарегистрировалось " + str_counter_0.toString() + " человек";
+      for (var i = 0; i < display_str.length; i++) {
+        var new_span = document.createElement('span');
+        new_span.className = 'num_tiles';
+        new_span.innerText = display_str[i];
+        display_div.appendChild(new_span);
+      }
+    },1000);
+  }
+</script>
+
